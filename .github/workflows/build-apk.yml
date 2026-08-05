@@ -1,16 +1,13 @@
 name: Build APK
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
   workflow_dispatch:
+  push:
+    branches: [ main ]
 
 jobs:
   build-apk:
     runs-on: ubuntu-latest
-
     steps:
       - name: Kodni olish
         uses: actions/checkout@v4
@@ -18,17 +15,17 @@ jobs:
       - name: Java o'rnatish
         uses: actions/setup-java@v4
         with:
-          distribution: "temurin"
-          java-version: "17"
+          distribution: 'temurin'
+          java-version: '17'
 
       - name: Flutter SDK o'rnatish
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.24.0"
-          channel: "stable"
+          channel: 'stable'
+          cache: true
 
       - name: Native loyihalarni to'ldirish
-        run: flutter create --org uz.uzumtezkor --project-name uzum_tezkor_customer .
+        run: flutter create . --platforms=android
 
       - name: Bog'liqliklarni o'rnatish
         run: flutter pub get
@@ -39,6 +36,5 @@ jobs:
       - name: APK'ni saqlash
         uses: actions/upload-artifact@v4
         with:
-          name: uzum-tezkor-customer-debug-apk
+          name: app-debug-apk
           path: build/app/outputs/flutter-apk/app-debug.apk
-          retention-days: 30
