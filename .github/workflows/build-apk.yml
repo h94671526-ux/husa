@@ -24,9 +24,6 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Native loyihalarni to'ldirish
-        run: flutter create . --platforms=android
-
       - name: Bog'liqliklarni o'rnatish
         run: flutter pub get
 
